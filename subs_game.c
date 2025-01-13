@@ -26,7 +26,7 @@ void check_row_or_col(char chosen_row, char chosen_col);
 
 void print_error_position_already_bombed();
 
-int make_a_move(int board[ROWS][COLS], int chosen_row, int chosen_col, int num_of_sub);
+int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen_col);
 
 void print_winning_message(int n_submarines, int n_moves);
 
@@ -87,9 +87,13 @@ const char MATRIX_5[ROWS][COLS] = {
 };
 
 
-int print_welcome_message() {
-    int board_num = 0;
+void print_welcome_message() {
     printf("Welcome to Battleship! Please enter board number:\n");
+}
+
+/*
+int choose_game_board(){
+    int board_num = 0;
 
     while (board_num < 1 || board_num > 5) {
         printf("Error in board number, try again\n");
@@ -97,11 +101,7 @@ int print_welcome_message() {
     }
     return(board_num);
 }
-
-
-
-
-
+*/
 
 /*
 char* choose_board(char* all_boards, int chosen_n){
@@ -109,7 +109,7 @@ char* choose_board(char* all_boards, int chosen_n){
 }
 */
 
-int print_enter_position(char (*p_board)[COLS]) {
+int print_enter_position(char (*p_board)[COLS], char (*p_current_board)[COLS]) {
     char chosen_col = 0;
     char chosen_row = 0;
     int num_of_sub = 0;
@@ -118,7 +118,7 @@ int print_enter_position(char (*p_board)[COLS]) {
     check_row_or_col(chosen_row, chosen_col);
     print_error_position_already_bombed();
 
-    make_a_move(p_board, chosen_row, chosen_col, num_of_sub);
+    make_a_move(p_board, p_current_board, chosen_row, chosen_col, num_of_sub);
     return(num_of_sub);
 }
 
@@ -132,7 +132,7 @@ void check_row_or_col(char chosen_row, char chosen_col) {
 }
 
 
-int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen_col) {
+int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen_col, int num_of_sub) {
     char *p_bombed = p_board[chosen_row][chosen_col];
 
     if(*p_bombed == SUBMARINE) {
@@ -200,15 +200,20 @@ void printMatrix(char matrix[ROWS][COLS]) {
 
 
 int main(void) {
-    const char* all_boards[5] = {&MATRIX_1[0][0], &MATRIX_2[0][0], &MATRIX_3[0][0], &MATRIX_4[0][0], &MATRIX_5[0][0]};
-
-    char board[ROWS][COLS] = {EMPTY};
-    int n_submarines = 0, n_moves = 0;
+/*
+    const char(*all_game_boards[COLS])[5] = {MATRIX_1, MATRIX_2, MATRIX_3, MATRIX_4, MATRIX_5};
+    char display_board[ROWS][COLS] = {EMPTY};
+    int n_submarines = 0;
+    int n_moves = 0;
     bool still_playing = true;
 
-    int chosen_board = print_welcome_message();
-//    char *p_board = choose_board(all_boards, chosen_board);
-    char *p_board = MATRIX_1;
+    print_welcome_message();
+    char (*p_game_board)[COLS] = MATRIX_1;
+*/
+    printMatrix(MATRIX_1);
+/*    
+    int chosen_board = 
+    char *p_board = choose_board(all_boards, chosen_board);
 
 
     while(still_playing) {
@@ -221,5 +226,6 @@ int main(void) {
     }
 
     print_winning_message(n_submarines, n_moves);
+*/
     return 0;
 }
