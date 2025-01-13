@@ -16,6 +16,8 @@
 
 
 // Function Declarations
+void printMatrix(const char matrix[ROWS][COLS]);
+/*
 void print_welcome_message();
 
 void check_board_number(int board_num);
@@ -30,8 +32,8 @@ int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen
 
 void print_winning_message(int n_submarines, int n_moves);
 
-void printMatrix(const char matrix[ROWS][COLS]);
 
+*/
 
 // Optional Boards
 
@@ -86,12 +88,12 @@ const char MATRIX_5[ROWS][COLS] = {
     {'S', '~', '~', 'S', '~', '~', '~', 'S'}
 };
 
-
+/*
 void print_welcome_message() {
     printf("Welcome to Battleship! Please enter board number:\n");
 }
 
-/*
+
 int choose_game_board(){
     int board_num = 0;
 
@@ -200,6 +202,10 @@ void printMatrix(char matrix[ROWS][COLS]) {
 */
 
 int main(void) {
+    printMatrix(MATRIX_1);
+    return(0);
+}
+
 /*
     const char(*all_game_boards[COLS])[5] = {MATRIX_1, MATRIX_2, MATRIX_3, MATRIX_4, MATRIX_5};
     char display_board[ROWS][COLS] = {EMPTY};
@@ -209,9 +215,9 @@ int main(void) {
 
     print_welcome_message();
     char (*p_game_board)[COLS] = MATRIX_1;
-*/
+
     printMatrix(MATRIX_1);
-/*    
+    
     int chosen_board = 
     char *p_board = choose_board(all_boards, chosen_board);
 
@@ -226,6 +232,7 @@ int main(void) {
     }
 
     print_winning_message(n_submarines, n_moves);
-*/
+
     return 0;
 }
+*/
