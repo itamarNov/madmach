@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#define NUM_OF_BOARDS 5
 #define ROWS 8
 #define COLS 8
-#define NUM_OF_BOARDS 5
+
 #define SUBMARINE 'S'
 #define EMPTY '~'
 #define HIDDEN ' '
@@ -13,12 +14,11 @@
 #define CHAR_0 48
 #define CHAR_7 55
 
-
-
 // Function Declarations
 void printMatrix(const char matrix[ROWS][COLS]);
-/*
 void print_welcome_message();
+int select_game_board();
+/*
 
 void check_board_number(int board_num);
 
@@ -36,7 +36,6 @@ void print_winning_message(int n_submarines, int n_moves);
 */
 
 // Optional Boards
-
 const char MATRIX_1[ROWS][COLS] = {
     {'~', '~', '~', '~', '~', '~', '~', '~'},
     {'~', '~', 'S', '~', '~', '~', 'S', '~'},
@@ -88,19 +87,38 @@ const char MATRIX_5[ROWS][COLS] = {
     {'S', '~', '~', 'S', '~', '~', '~', 'S'}
 };
 
-/*
 void print_welcome_message() {
-    printf("Welcome to Battleship! Please enter board number:\n");
+    printf("Welcome to Battleship!!!\n");
 }
+
+int select_game_board()
+{
+    int board_num = 3;
+    bool answer_ok = false;
+    while(!answer_ok){
+        printf("Please enter board number [1-5]: ");
+        int result = scanf("%d", &board_num);
+        if(result == 0){
+            printf("Error in input. You should enter a number [1-5]. Please, try again\n");
+            while (getchar() != '\n'); // clean the buffer for next scanf command
+            continue;
+        }
+
+        if (board_num >= 1 && board_num <= 5) {
+            answer_ok = true;
+        }
+        else{
+            printf("Error in board number, try again\n"); 
+        }
+    }
+    printf("Thank you for selecting board number %d \n", board_num);
+    return board_num;
+}
+
+/*
 
 
 int choose_game_board(){
-    int board_num = 0;
-
-    while (board_num < 1 || board_num > 5) {
-        printf("Error in board number, try again\n");
-        scanf("%d", &board_num);
-    }
     return(board_num);
 }
 */
@@ -181,6 +199,7 @@ void print_winning_message(int n_submarines, int n_moves) {
 // Print a ROWSxCOLS matrix
 void printMatrix(const char matrix[ROWS][COLS]) {
     // Print column headers
+    printf("\n");
     printf("  ");
     for (int j = 0; j < COLS; j++) {
         printf(" %c", 'A' + j);
@@ -201,6 +220,9 @@ void printMatrix(const char matrix[ROWS][COLS]) {
 }
 
 int main(void) {
+    print_welcome_message();
+    int board_num = select_game_board();
+    char game_board[ROWS][COLS];
     printMatrix(MATRIX_1);
     return(0);
 }
@@ -212,13 +234,11 @@ int main(void) {
     int n_moves = 0;
     bool still_playing = true;
 
-    print_welcome_message();
     char (*p_game_board)[COLS] = MATRIX_1;
 
     printMatrix(MATRIX_1);
     
     int chosen_board = 
-    char *p_board = choose_board(all_boards, chosen_board);
 
 
     while(still_playing) {

@@ -1,0 +1,3 @@
+C:/Users/itama/Documents/technion/madmach/build/CMakeFiles/MyExecutable.dir
+C:/Users/itama/Documents/technion/madmach/build/CMakeFiles/edit_cache.dir
+C:/Users/itama/Documents/technion/madmach/build/CMakeFiles/rebuild_cache.dir

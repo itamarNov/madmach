@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/itama/Documents/technion/madmach/build",
+  "command": "C:\\MinGW\\bin\\gcc.exe   -g -o CMakeFiles\\MyExecutable.dir\\subs_game.c.obj -c C:\\Users\\itama\\Documents\\technion\\madmach\\subs_game.c",
+  "file": "C:/Users/itama/Documents/technion/madmach/subs_game.c",
+  "output": "CMakeFiles/MyExecutable.dir/subs_game.c.obj"
+}
+]
