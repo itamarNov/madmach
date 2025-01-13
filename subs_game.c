@@ -13,8 +13,6 @@ int print_welcome_message();
 
 void check_board_number(int board_num);
 
-char* choose_board(char* all_boards, int chosen_n);
-
 int print_enter_position();
 
 void check_row_or_col();
@@ -93,7 +91,7 @@ int print_welcome_message() {
     return(board_num);
 }
 
-char* choose_board(char* all_boards, int chosen_n)
+const char* choose_board(const char* all_boards, int chosen_n)
     return(all_boards[chosen_n -1]);
 }
 
