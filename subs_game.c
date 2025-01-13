@@ -91,7 +91,7 @@ int print_welcome_message() {
     return(board_num);
 }
 
-const char* choose_board(const char* all_boards, int chosen_n){
+char* choose_board(const char* all_boards, int chosen_n){
     return(all_boards[chosen_n -1]);
 }
 
