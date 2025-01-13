@@ -179,7 +179,7 @@ void print_winning_message(int n_submarines, int n_moves) {
 }
 */
 // Print a ROWSxCOLS matrix
-void printMatrix(char matrix[ROWS][COLS]) {
+void printMatrix(const char matrix[ROWS][COLS]) {
     // Print column headers
     printf("  ");
     for (int j = 0; j < COLS; j++) {
