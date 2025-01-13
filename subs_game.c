@@ -91,9 +91,11 @@ int print_welcome_message() {
     return(board_num);
 }
 
-char* choose_board(const char* all_boards, int chosen_n){
+/*
+char* choose_board(char* all_boards, int chosen_n){
     return(all_boards[chosen_n -1]);
 }
+*/
 
 int print_enter_position(char *p_board) {
     char chosen_col = 0;
@@ -193,7 +195,8 @@ int main(void) {
     bool still_playing = true;
 
     int chosen_board = print_welcome_message();
-    char *p_board = choose_board(all_boards, chosen_board);
+//    char *p_board = choose_board(all_boards, chosen_board);
+    char *p_board = MATRIX_1;
 
 
     while(still_playing) {
