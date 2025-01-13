@@ -103,8 +103,8 @@ char* choose_board(char* all_boards, int chosen_n){
 */
 
 int print_enter_position(char *p_board) {
-    char chosen_col = 0;
-    char chosen_row = 0;
+    int chosen_col = 0;
+    int chosen_row = 0;
     int num_of_sub = 0;
     printf("Please enter position:\n");
     scanf("%d %d", &chosen_row, &chosen_col);
