@@ -13,7 +13,7 @@ int print_welcome_message();
 
 void check_board_number(int board_num);
 
-char* choose_board(int chosen_n);
+char* choose_board(char* all_boards, int chosen_n);
 
 int print_enter_position();
 
@@ -93,8 +93,7 @@ int print_welcome_message() {
     return(board_num);
 }
 
-char* choose_board(int chosen_n) {
-    char* all_boards[5] = {&MATRIX_1[0][0], &MATRIX_2[0][0], &MATRIX_3[0][0], &MATRIX_4[0][0], &MATRIX_5[0][0]};
+char* choose_board(char* all_boards, int chosen_n)
     return(all_boards[chosen_n -1]);
 }
 
@@ -189,12 +188,14 @@ void printMatrix(char matrix[ROWS][COLS]) {
 
 
 int main(void) {
+    const char* all_boards[5] = {&MATRIX_1[0][0], &MATRIX_2[0][0], &MATRIX_3[0][0], &MATRIX_4[0][0], &MATRIX_5[0][0]};
+
     char board[ROWS][COLS] = {EMPTY};
     int n_submarines = 0, n_moves = 0;
     bool still_playing = true;
 
     int chosen_board = print_welcome_message();
-    char *p_board = choose_board(chosen_board);
+    char *p_board = choose_board(all_boards, chosen_board);
 
 
     while(still_playing) {
