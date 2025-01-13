@@ -107,7 +107,7 @@ int choose_game_board(){
 char* choose_board(char* all_boards, int chosen_n){
     return(all_boards[chosen_n -1]);
 }
-*/
+
 
 int print_enter_position(char (*p_board)[COLS], char (*p_current_board)[COLS]) {
     char chosen_col = 0;
@@ -197,7 +197,7 @@ void printMatrix(char matrix[ROWS][COLS]) {
         printf("|\n");
     }
 }
-
+*/
 
 int main(void) {
 /*
