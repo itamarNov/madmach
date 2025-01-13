@@ -111,7 +111,7 @@ int print_enter_position(char *p_board) {
     check_row_or_col(chosen_row, chosen_col);
     print_error_position_already_bombed();
 
-    make_a_move(board, chosen_row, chosen_col, num_of_sub);
+    make_a_move(p_board, chosen_row, chosen_col, num_of_sub);
     return(num_of_sub);
 }
 
