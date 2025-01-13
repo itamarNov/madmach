@@ -16,7 +16,7 @@
 
 
 // Function Declarations
-int print_welcome_message();
+void print_welcome_message();
 
 void check_board_number(int board_num);
 
