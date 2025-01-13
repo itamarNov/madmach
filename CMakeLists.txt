@@ -5,4 +5,4 @@ cmake_minimum_required(VERSION 3.10)
 project(MyCProject LANGUAGES C)
 
 # Add an executable target with source files
-add_executable(MyExecutable main.c utils.c)
+add_executable(MyExecutable subs_game.c)
