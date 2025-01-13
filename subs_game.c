@@ -177,7 +177,7 @@ void print_winning_message(int n_submarines, int n_moves) {
     printf("Congratulations, Admiral!\nYou've successfully "
            "revealed all %d submarines in %d moves!\n", n_submarines, n_moves);
 }
-
+*/
 // Print a ROWSxCOLS matrix
 void printMatrix(char matrix[ROWS][COLS]) {
     // Print column headers
@@ -199,7 +199,6 @@ void printMatrix(char matrix[ROWS][COLS]) {
         printf("|\n");
     }
 }
-*/
 
 int main(void) {
     printMatrix(MATRIX_1);
