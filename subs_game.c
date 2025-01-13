@@ -8,6 +8,13 @@
 #define EMPTY '~'
 #define HIDDEN ' '
 
+#define CHAR_A 65
+#define CHAR_H 72
+#define CHAR_0 48
+#define CHAR_7 55
+
+
+
 // Function Declarations
 int print_welcome_message();
 
@@ -15,7 +22,7 @@ void check_board_number(int board_num);
 
 int print_enter_position();
 
-void check_row_or_col();
+void check_row_or_col(char chosen_row, char chosen_col);
 
 void print_error_position_already_bombed();
 
@@ -102,12 +109,12 @@ char* choose_board(char* all_boards, int chosen_n){
 }
 */
 
-int print_enter_position(char *p_board) {
-    int chosen_col = 0;
-    int chosen_row = 0;
+int print_enter_position(char (*p_board)[COLS]) {
+    char chosen_col = 0;
+    char chosen_row = 0;
     int num_of_sub = 0;
     printf("Please enter position:\n");
-    scanf("%d %d", &chosen_row, &chosen_col);
+    scanf("%c %c", &chosen_row, &chosen_col);
     check_row_or_col(chosen_row, chosen_col);
     print_error_position_already_bombed();
 
@@ -116,10 +123,10 @@ int print_enter_position(char *p_board) {
 }
 
 void check_row_or_col(char chosen_row, char chosen_col) {
-    while (chosen_row < 48 || chosen_row > 55 ||
-        chosen_col < 65 || chosen_col > 72){
+    while (chosen_row < CHAR_0 || chosen_row > CHAR_7 ||
+        chosen_col < CHAR_A || chosen_col > CHAR_H){
         printf("Error in row or column - out of bound\n");
-        scanf("%d %d", &chosen_row, &chosen_col);
+        scanf("%c %c", &chosen_row, &chosen_col);
         }
     //need to add function if the pos has already been chosen before
 }
