@@ -30,7 +30,7 @@ int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen
 
 void print_winning_message(int n_submarines, int n_moves);
 
-void printMatrix(char matrix[ROWS][COLS]);
+void printMatrix(const char matrix[ROWS][COLS]);
 
 
 // Optional Boards
