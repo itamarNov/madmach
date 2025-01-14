@@ -1,1 +1,1 @@
-scanf("%d", &board_num);
+scanf

@@ -14,6 +14,10 @@
 #define CHAR_0 48
 #define CHAR_7 55
 
+void clear_scanf_buffer(){
+     while (getchar() != '\n');
+}
+
 // Function Declarations
 void printMatrix(const char matrix[ROWS][COLS]);
 void print_welcome_message();
@@ -98,9 +102,10 @@ int select_game_board()
     while(!answer_ok){
         printf("Please enter board number [1-5]: ");
         int result = scanf("%d", &board_num);
+        clear_scanf_buffer();
         if(result == 0){
             printf("Error in input. You should enter a number [1-5]. Please, try again\n");
-            while (getchar() != '\n'); // clean the buffer for next scanf command
+//            while (getchar() != '\n'); // clean the buffer for next scanf command
             continue;
         }
 
@@ -282,14 +287,37 @@ void set_display_board(char display_board[ROWS][COLS]){
     }
 }
 
+void get_user_move(char *p_user_col, int *p_user_row){
+    int result;
+    printf("Please enter position, for example D4:\n");
+    result = scanf("%c%d", p_user_col, p_user_row);
+    // result = scanf("%c", p_user_col);
+    clear_scanf_buffer();
+
+    // result = scanf("%d", p_user_row);
+    // clear_scanf_buffer();
+//    int a = 3;
+//    result = scanf("%d", &a);
+}
+
+
 int main(void) {
     print_welcome_message();
+
     int board_num = select_game_board();
+
     char game_board[ROWS][COLS];
     set_game_board(board_num, game_board);
     printMatrix(game_board);
+
     char display_board[ROWS][COLS] = {EMPTY};
     set_display_board(display_board);
     printMatrix(display_board);
+
+    char user_col = 'X';
+    int user_row = -1;
+    printf("User selected %c %d \n", user_col, user_row);
+    get_user_move(&user_col, &user_row);
+    printf("User selected %c %d \n", user_col, user_row);
     return(0);
 }
