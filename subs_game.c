@@ -219,13 +219,6 @@ void printMatrix(const char matrix[ROWS][COLS]) {
     }
 }
 
-int main(void) {
-    print_welcome_message();
-    int board_num = select_game_board();
-    char game_board[ROWS][COLS];
-    printMatrix(MATRIX_1);
-    return(0);
-}
 
 /*
     const char(*all_game_boards[COLS])[5] = {MATRIX_1, MATRIX_2, MATRIX_3, MATRIX_4, MATRIX_5};
@@ -255,3 +248,48 @@ int main(void) {
     return 0;
 }
 */
+void set_game_board(int board_num, char game_board[ROWS][COLS]){
+    const char (*p_board)[COLS];
+    switch(board_num){
+        case 1:
+        p_board = MATRIX_1;
+        break;
+        case 2:
+        p_board = MATRIX_2;
+        break;
+        case 3:
+        p_board = MATRIX_3;
+        break;
+        case 4:
+        p_board = MATRIX_4;
+        break;
+        case 5:
+        p_board = MATRIX_5;
+        break;
+     }
+    for(int row_idx=0; row_idx<ROWS; row_idx++){
+        for(int col_idx=0; col_idx<COLS; col_idx++){
+            game_board[row_idx][col_idx] = p_board[row_idx][col_idx];
+        }
+    }
+}
+
+void set_display_board(char display_board[ROWS][COLS]){
+    for(int row_idx=0; row_idx<ROWS; row_idx++){
+        for(int col_idx=0; col_idx<COLS; col_idx++){
+            display_board[row_idx][col_idx] = EMPTY;
+        }
+    }
+}
+
+int main(void) {
+    print_welcome_message();
+    int board_num = select_game_board();
+    char game_board[ROWS][COLS];
+    set_game_board(board_num, game_board);
+    printMatrix(game_board);
+    char display_board[ROWS][COLS] = {EMPTY};
+    set_display_board(display_board);
+    printMatrix(display_board);
+    return(0);
+}
