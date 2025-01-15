@@ -282,7 +282,7 @@ void set_game_board(int board_num, char game_board[ROWS][COLS]){
 void set_display_board(char display_board[ROWS][COLS]){
     for(int row_idx=0; row_idx<ROWS; row_idx++){
         for(int col_idx=0; col_idx<COLS; col_idx++){
-            display_board[row_idx][col_idx] = EMPTY;
+            display_board[row_idx][col_idx] = HIDDEN;
         }
     }
 }
@@ -305,9 +305,14 @@ int get_column_idx(char user_col){
 }
 
 
-void update_diaplay_board(char display_board[ROWS][COLS], char user_col, int user_row){
+void update_diaplay_board(char display_board[ROWS][COLS], char user_col, int user_row, char sign){
     int col_idx = get_column_idx(user_col);
-    display_board[user_row][col_idx] = SUBMARINE;
+    display_board[user_row][col_idx] = sign;
+}
+
+void game_logic(char game_board[ROWS][COLS], char display_board[ROWS][COLS], char user_col, int user_row){
+    int col_idx = get_column_idx(user_col);
+    display_board[user_row][col_idx] = game_board[user_row][col_idx];    
 }
 
 
@@ -327,9 +332,12 @@ int main(void) {
     char user_col;
     int user_row;
 //    printf("User selected %c %d \n", user_col, user_row);
-    get_user_move(&user_col, &user_row);
+    for(int i=0; i<5; i++){
+        get_user_move(&user_col, &user_row);
+        game_logic(game_board, display_board, user_col, user_row);
 //    printf("User selected %c %d \n", user_col, user_row);
-    update_diaplay_board(display_board, user_col, user_row);
-    printMatrix(display_board);
+        //update_diaplay_board(display_board, user_col, user_row, SUBMARINE);
+        printMatrix(display_board);
+    }
     return(0);
 }
