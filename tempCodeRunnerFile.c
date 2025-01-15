@@ -1,1 +1,1 @@
-scanf
+get_column_idx

@@ -14,31 +14,7 @@
 #define CHAR_0 48
 #define CHAR_7 55
 
-void clear_scanf_buffer(){
-     while (getchar() != '\n');
-}
-
-// Function Declarations
-void printMatrix(const char matrix[ROWS][COLS]);
-void print_welcome_message();
-int select_game_board();
-/*
-
-void check_board_number(int board_num);
-
-int print_enter_position();
-
-void check_row_or_col(char chosen_row, char chosen_col);
-
-void print_error_position_already_bombed();
-
-int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen_col);
-
-void print_winning_message(int n_submarines, int n_moves);
-
-
-*/
-
+// global variables
 // Optional Boards
 const char MATRIX_1[ROWS][COLS] = {
     {'~', '~', '~', '~', '~', '~', '~', '~'},
@@ -91,12 +67,47 @@ const char MATRIX_5[ROWS][COLS] = {
     {'S', '~', '~', 'S', '~', '~', '~', 'S'}
 };
 
+int n_moves = 0;
+int n_submarines = 0;
+char display_board[ROWS][COLS];
+char game_board[ROWS][COLS];
+int user_row_idx;
+int user_col_idx;
+
+
+// Function Declarations
+void clear_scanf_buffer();
+int get_column_idx(char user_col);
+void print_welcome_message();
+int select_game_board();
+void check_row_or_col(char chosen_row, char chosen_col);
+void print_error_position_already_bombed();
+void print_winning_message();
+void printMatrix(const char matrix[ROWS][COLS]);
+void set_game_board(int board_num);
+void set_display_board();
+void get_user_move();
+void check_and_update_submarine(int shift_row_idx, int shift_col_idx);
+void update_display_board_when_submarine_found();
+void game_logic();
+bool check_keep_game();
+int main(void);
+
+
+// Function Implementations
+void clear_scanf_buffer(){
+     while (getchar() != '\n');
+}
+
+int get_column_idx(char user_col){
+    return (user_col - 'A');
+}
+
 void print_welcome_message() {
     printf("Welcome to Battleship!!!\n");
 }
 
-int select_game_board()
-{
+int select_game_board(){
     int board_num = 3;
     bool answer_ok = false;
     while(!answer_ok){
@@ -105,7 +116,6 @@ int select_game_board()
         clear_scanf_buffer();
         if(result == 0){
             printf("Error in input. You should enter a number [1-5]. Please, try again\n");
-//            while (getchar() != '\n'); // clean the buffer for next scanf command
             continue;
         }
 
@@ -120,33 +130,6 @@ int select_game_board()
     return board_num;
 }
 
-/*
-
-
-int choose_game_board(){
-    return(board_num);
-}
-*/
-
-/*
-char* choose_board(char* all_boards, int chosen_n){
-    return(all_boards[chosen_n -1]);
-}
-
-
-int print_enter_position(char (*p_board)[COLS], char (*p_current_board)[COLS]) {
-    char chosen_col = 0;
-    char chosen_row = 0;
-    int num_of_sub = 0;
-    printf("Please enter position:\n");
-    scanf("%c %c", &chosen_row, &chosen_col);
-    check_row_or_col(chosen_row, chosen_col);
-    print_error_position_already_bombed();
-
-    make_a_move(p_board, p_current_board, chosen_row, chosen_col, num_of_sub);
-    return(num_of_sub);
-}
-
 void check_row_or_col(char chosen_row, char chosen_col) {
     while (chosen_row < CHAR_0 || chosen_row > CHAR_7 ||
         chosen_col < CHAR_A || chosen_col > CHAR_H){
@@ -156,51 +139,15 @@ void check_row_or_col(char chosen_row, char chosen_col) {
     //need to add function if the pos has already been chosen before
 }
 
-
-int make_a_move(char *p_board ,char *p_current_board, int chosen_row, int chosen_col, int num_of_sub) {
-    char *p_bombed = p_board[chosen_row][chosen_col];
-
-    if(*p_bombed == SUBMARINE) {
-        p_current_board[chosen_row][chosen_col] = SUBMARINE;
-
-        //needs to check if its still in the board limits
-        int i = 1;
-        while(p_board[chosen_row + i][chosen_col] == SUBMARINE) {
-            p_current_board[chosen_row + i][chosen_col] = SUBMARINE;
-            i++;
-        }
-        i = 1;
-        while(p_board[chosen_row - i][chosen_col] == SUBMARINE) {
-            p_current_board[chosen_row - i][chosen_col] = SUBMARINE;
-            i++;
-        }
-        i = 1;
-        while(p_board[chosen_row][chosen_col + i] == SUBMARINE) {
-            p_current_board[chosen_row][chosen_col+ i] = SUBMARINE;
-            i++;
-        }
-        i = 1;
-        while(p_board[chosen_row][chosen_col - i] == SUBMARINE) {
-            p_current_board[chosen_row][chosen_col - i] = SUBMARINE;
-            i++;
-        }
-        return (1);
-    }else {
-        p_current_board[chosen_row][chosen_col] = EMPTY;
-        return(0);
-    }
-}
-
-
 void print_error_position_already_bombed() {
     printf("This position was already bombed - try again!\n");
 }
 
-void print_winning_message(int n_submarines, int n_moves) {
+void print_winning_message() {
     printf("Congratulations, Admiral!\nYou've successfully "
            "revealed all %d submarines in %d moves!\n", n_submarines, n_moves);
 }
-*/
+
 // Print a ROWSxCOLS matrix
 void printMatrix(const char matrix[ROWS][COLS]) {
     // Print column headers
@@ -224,36 +171,7 @@ void printMatrix(const char matrix[ROWS][COLS]) {
     }
 }
 
-
-/*
-    const char(*all_game_boards[COLS])[5] = {MATRIX_1, MATRIX_2, MATRIX_3, MATRIX_4, MATRIX_5};
-    char display_board[ROWS][COLS] = {EMPTY};
-    int n_submarines = 0;
-    int n_moves = 0;
-    bool still_playing = true;
-
-    char (*p_game_board)[COLS] = MATRIX_1;
-
-    printMatrix(MATRIX_1);
-    
-    int chosen_board = 
-
-
-    while(still_playing) {
-        printMatrix(board);
-        n_submarines += print_enter_position(p_board);
-        n_moves++;
-        if(n_submarines == 4) {
-            still_playing = false;
-        }
-    }
-
-    print_winning_message(n_submarines, n_moves);
-
-    return 0;
-}
-*/
-void set_game_board(int board_num, char game_board[ROWS][COLS]){
+void set_game_board(int board_num){
     const char (*p_board)[COLS];
     switch(board_num){
         case 1:
@@ -279,7 +197,7 @@ void set_game_board(int board_num, char game_board[ROWS][COLS]){
     }
 }
 
-void set_display_board(char display_board[ROWS][COLS]){
+void set_display_board(){
     for(int row_idx=0; row_idx<ROWS; row_idx++){
         for(int col_idx=0; col_idx<COLS; col_idx++){
             display_board[row_idx][col_idx] = HIDDEN;
@@ -287,57 +205,78 @@ void set_display_board(char display_board[ROWS][COLS]){
     }
 }
 
-void get_user_move(char *p_user_col, int *p_user_row){
+void get_user_move(){
     int result;
+    char user_col_char;
     printf("Please enter position, for example D4:\n");
-    result = scanf("%c%d", p_user_col, p_user_row);
-    // result = scanf("%c", p_user_col);
+    result = scanf("%c%d", &user_col_char, &user_row_idx);
     clear_scanf_buffer();
-
-    // result = scanf("%d", p_user_row);
-    // clear_scanf_buffer();
-//    int a = 3;
-//    result = scanf("%d", &a);
+    user_col_idx = get_column_idx(user_col_char);
 }
 
-int get_column_idx(char user_col){
-    return (user_col - 'A');
+void check_and_update_submarine(int shift_row_idx, int shift_col_idx){
+    int row_idx = user_row_idx;
+    int col_idx = user_col_idx;
+    while(true){
+        if(row_idx<0) break;
+        if(row_idx>ROWS) break;
+        if(col_idx<0) break;
+        if(col_idx>COLS) break;
+        if(game_board[row_idx][col_idx] != SUBMARINE) break;
+
+        display_board[row_idx][col_idx] = SUBMARINE;
+
+        row_idx += shift_row_idx;
+        col_idx += shift_col_idx;
+    }
 }
 
-
-void update_diaplay_board(char display_board[ROWS][COLS], char user_col, int user_row, char sign){
-    int col_idx = get_column_idx(user_col);
-    display_board[user_row][col_idx] = sign;
+void update_display_board_when_submarine_found(){
+    check_and_update_submarine(1, 0);
+    check_and_update_submarine(-1, 0);
+    check_and_update_submarine(0, 1);
+    check_and_update_submarine(0, -1);
 }
 
-void game_logic(char game_board[ROWS][COLS], char display_board[ROWS][COLS], char user_col, int user_row){
-    int col_idx = get_column_idx(user_col);
-    display_board[user_row][col_idx] = game_board[user_row][col_idx];    
+void game_logic(){
+    n_moves++;
+    char sign = game_board[user_row_idx][user_col_idx];
+    display_board[user_row_idx][user_col_idx] = sign;
+    if(sign == SUBMARINE){
+        n_submarines++;
+        update_display_board_when_submarine_found();
+    }    
 }
 
+bool check_keep_game(){
+    for(int i=0; i<ROWS;i++){
+        for(int j=0; j<COLS; j++){
+            if(
+                (game_board[i][j] == SUBMARINE) && (display_board[i][j] != SUBMARINE)
+                ){
+                return true;
+            } 
+        }
+    }
+    return false;
+
+}
 
 int main(void) {
     print_welcome_message();
-
     int board_num = select_game_board();
+    set_game_board(board_num);
+//    printMatrix(game_board);
 
-    char game_board[ROWS][COLS];
-    set_game_board(board_num, game_board);
-    printMatrix(game_board);
-
-    char display_board[ROWS][COLS] = {EMPTY};
     set_display_board(display_board);
-    printMatrix(display_board);
 
-    char user_col;
-    int user_row;
-//    printf("User selected %c %d \n", user_col, user_row);
-    for(int i=0; i<5; i++){
-        get_user_move(&user_col, &user_row);
-        game_logic(game_board, display_board, user_col, user_row);
-//    printf("User selected %c %d \n", user_col, user_row);
-        //update_diaplay_board(display_board, user_col, user_row, SUBMARINE);
+    while(check_keep_game()){
         printMatrix(display_board);
+        printf("Moves: %d, Submarines: %d\n", n_moves, n_submarines);
+        get_user_move();
+        game_logic();
     }
+    printMatrix(display_board);
+    print_winning_message();
     return(0);
 }
