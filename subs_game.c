@@ -300,6 +300,16 @@ void get_user_move(char *p_user_col, int *p_user_row){
 //    result = scanf("%d", &a);
 }
 
+int get_column_idx(char user_col){
+    return (user_col - 'A');
+}
+
+
+void update_diaplay_board(char display_board[ROWS][COLS], char user_col, int user_row){
+    int col_idx = get_column_idx(user_col);
+    display_board[user_row][col_idx] = SUBMARINE;
+}
+
 
 int main(void) {
     print_welcome_message();
@@ -314,10 +324,12 @@ int main(void) {
     set_display_board(display_board);
     printMatrix(display_board);
 
-    char user_col = 'X';
-    int user_row = -1;
-    printf("User selected %c %d \n", user_col, user_row);
+    char user_col;
+    int user_row;
+//    printf("User selected %c %d \n", user_col, user_row);
     get_user_move(&user_col, &user_row);
-    printf("User selected %c %d \n", user_col, user_row);
+//    printf("User selected %c %d \n", user_col, user_row);
+    update_diaplay_board(display_board, user_col, user_row);
+    printMatrix(display_board);
     return(0);
 }
